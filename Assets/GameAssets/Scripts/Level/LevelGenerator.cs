@@ -13,20 +13,22 @@ public class LevelGenerator : CacheComponent
     public List<Tile> TilePrefabList;
     [FormerlySerializedAs("NumberOfColumns")] public int NumberOfColumns;
     [FormerlySerializedAs("NumberOfRows")] public int NumberOfRows;
-    [ShowInInspector] private Tile[,] TileArray = new Tile[8, 8];
-    [ShowInInspector] private List<TileSpot> TileSpots = new List<TileSpot>();
+    [ShowInInspector] public Tile[,] TileArray = new Tile[4, 4];
+    [ShowInInspector] public bool[,] TileSpot = new bool[4, 4];
+    [ShowInInspector] private List<TileIndex> TileIndexList = new List<TileIndex>();
     private string path;
     private int prefabIndex;
 
     public override void OnInit()
     {
         PanelTiles = UIManager.Instance.Canvas_Gameplay.PanelTiles;
-        UIManager.Instance.Canvas_Gameplay.SetColumnCount(NumberOfColumns);
+        UIManager.Instance.Canvas_Gameplay.SetConstraintCount(NumberOfColumns);
     }
 
     public void GenerateLevel(TileTheme theme)
     {
-        TileArray = new Tile[NumberOfRows, NumberOfColumns];
+        TileArray = new Tile[NumberOfColumns, NumberOfRows];
+        TileSpot = new bool[NumberOfColumns + 2, NumberOfRows + 2];
         switch (theme)
         {
             case TileTheme.Fish:
@@ -43,6 +45,7 @@ public class LevelGenerator : CacheComponent
             default:
                 break;
         }
+        
         GenerateLevelByTheme();
     }
 
@@ -50,27 +53,26 @@ public class LevelGenerator : CacheComponent
     {
         Tile[] tiles = Resources.LoadAll<Tile>(path);
         TilePrefabList = tiles.ToList();
-        int totalTiles = NumberOfColumns * NumberOfRows;
         for (int i = 0; i < NumberOfColumns; i++)
         {
             for (int j = 0; j < NumberOfRows; j++)
             {
-                TileSpot tileSpot = new TileSpot(i, j);
-                TileSpots.Add(tileSpot);
+                TileIndex tileSpot = new TileIndex(i, j);
+                TileIndexList.Add(tileSpot);
             }
         }
 
-        while (TileSpots.Count > 0)
+        while (TileIndexList.Count > 0)
         {
             prefabIndex = Random.Range(0, TilePrefabList.Count);
             for (int i = 0; i < 2; i++)
             {
-                int index = Random.Range(0, TileSpots.Count);
-                this.LogMsg(index);
-                TileSpot tileSpot = TileSpots[index];
+                int index = Random.Range(0, TileIndexList.Count);
+                TileIndex tileSpot = TileIndexList[index];
                 Tile tile = Instantiate(TilePrefabList[prefabIndex]);
-                TileArray[tileSpot.RowIndex, tileSpot.ColumnIndex] = tile;
-                TileSpots.RemoveAt(index);
+                TileArray[tileSpot.ColumnIndex, tileSpot.RowIndex] = tile;
+                TileSpot[tileSpot.ColumnIndex + 1, tileSpot.RowIndex + 1] = true;
+                TileIndexList.RemoveAt(index);
             }
         }
 
@@ -79,33 +81,41 @@ public class LevelGenerator : CacheComponent
 
     private void SetTileParent()
     {
-        for (int i = 0; i < NumberOfRows; i++)
+        for (int i = 0; i < NumberOfColumns; i++)
         {
-            for (int j = 0; j < NumberOfColumns; j++)
+            for (int j = 0; j < NumberOfRows; j++)
             {
+                this.LogMsg(i);
+                this.LogMsg(j);
                 TileArray[i, j].Transform.SetParent(PanelTiles);
             }
         }
     }
 
-    private List<int> GetListIndex(int number)
+    public Vector2Int GetTileIndex(Tile tile)
     {
-        List<int> list = new List<int>();
-        for (int i = 0; i < number; i++)
+        for (int i = 0; i < NumberOfColumns; i++)
         {
-            list.Add(i);
+            for (int j = 0; j < NumberOfRows; j++)
+            {
+                if (TileArray[i, j] == tile)
+                {
+                    this.LogMsg(j);
+                    return new Vector2Int(i, j);
+                }
+            }
         }
-        return list;
-    } 
+        return new Vector2Int();
+    }
 }
 
 [System.Serializable]
-public class TileSpot
+public class TileIndex
 {
     public int ColumnIndex;
     public int RowIndex;
 
-    public TileSpot(int columnIndex, int rowIndex)
+    public TileIndex(int columnIndex, int rowIndex)
     {
         ColumnIndex = columnIndex;
         RowIndex = rowIndex;

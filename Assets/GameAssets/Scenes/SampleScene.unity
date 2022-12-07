@@ -128,6 +128,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8666040908895449965, guid: 36312792f322ccb42a46ff60a2ba720d, type: 3}
   m_PrefabInstance: {fileID: 8666040908652723614}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &435579810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 435579812}
+  - component: {fileID: 435579811}
+  m_Layer: 0
+  m_Name: ConnectionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &435579811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435579810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a0f09c32023364698a0e0c70fcddb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstTilePosition: {x: 0, y: 0}
+  SecondTilePosition: {x: 0, y: 0}
+  TileCount: 0
+--- !u!4 &435579812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435579810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +303,7 @@ MonoBehaviour:
   PanelTiles: {fileID: 0}
   TilePrefabList: []
   NumberOfColumns: 3
-  NumberOfRows: 4
+  NumberOfRows: 2
 --- !u!1 &793912510
 GameObject:
   m_ObjectHideFlags: 0

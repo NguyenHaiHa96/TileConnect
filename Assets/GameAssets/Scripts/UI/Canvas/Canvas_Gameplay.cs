@@ -8,8 +8,8 @@ public class Canvas_Gameplay : UICanvas
     public RectTransform PanelTiles;
     public GridLayoutGroup GridLayoutGroup;
 
-    public void SetColumnCount(int column)
+    public void SetConstraintCount(int constraint)
     {
-        GridLayoutGroup.constraintCount = column;
+        GridLayoutGroup.constraintCount = constraint;
     }     
 }
