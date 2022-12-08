@@ -51,7 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 2391678115603850169}
+  ImgBG: {fileID: 2391678115679634813}
+  ImgIcon: {fileID: 2391678117065053633}
   Theme: 0
+  IsBarrier: 1
+  IsEmpty: 0
 --- !u!1 &2391678115679634803
 GameObject:
   m_ObjectHideFlags: 0
