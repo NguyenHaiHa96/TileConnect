@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &435579811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +182,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &444810468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 444810470}
+  - component: {fileID: 444810469}
+  m_Layer: 0
+  m_Name: PathfindingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &444810469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444810468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c626e30ccddd549be3636dacc518b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pathfinding:
+    NodeGrid:
+      Parent: {fileID: 0}
+      CellSize: 0
+      Row: 0
+      Column: 0
+    OpenList: []
+    CloseList: []
+    Row: 0
+    Column: 0
+  Tile1: {fileID: 0}
+  Tile2: {fileID: 0}
+  Node1:
+    GameGrid:
+      Parent: {fileID: 0}
+      CellSize: 0
+      Row: 0
+      Column: 0
+    Row: 0
+    Column: 0
+    GCost: 0
+    HCost: 0
+    FCost: 0
+    IsWalkable: 0
+  Node2:
+    GameGrid:
+      Parent: {fileID: 0}
+      CellSize: 0
+      Row: 0
+      Column: 0
+    Row: 0
+    Column: 0
+    GCost: 0
+    HCost: 0
+    FCost: 0
+    IsWalkable: 0
+  FirstTileIndex: {x: 0, y: 0}
+  SecondTileIndex: {x: 0, y: 0}
+  TileCount: 0
+--- !u!4 &444810470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444810468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -647,56 +729,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1900682874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1900682876}
-  - component: {fileID: 1900682875}
-  m_Layer: 0
-  m_Name: TestGrid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1900682875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1900682874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0231a538ad0503849b0212ea2aa34ac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TilePrefab: {fileID: 2729814413588853315, guid: 0d157a0d20f5d784cbcb7e3475d2744e, type: 3}
-  TileGrid:
-    Parent: {fileID: 0}
-    CellSize: 0
-    Width: 0
-    Height: 0
-  CellSize: 0
---- !u!4 &1900682876
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1900682874}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &2120964690 stripped
 RectTransform:
