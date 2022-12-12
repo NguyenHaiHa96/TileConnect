@@ -54,6 +54,9 @@ MonoBehaviour:
   ImgBG: {fileID: 2391678115679634813}
   ImgIcon: {fileID: 2391678117065053633}
   Theme: 0
+  ID: 21
+  RowIndex: 0
+  ColumnIndex: 0
   IsBarrier: 1
   IsEmpty: 0
 --- !u!1 &2391678115679634803

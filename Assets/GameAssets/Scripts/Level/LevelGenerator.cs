@@ -15,18 +15,32 @@ public class LevelGenerator : CacheComponent
     public List<Tile> TilePrefabList;
     [FormerlySerializedAs("NumberOfRows")] public int NumberOfRows;
     [FormerlySerializedAs("NumberOfColumns")] public int NumberOfColumns;
+    [Header("Tile Array")]
     [ShowInInspector] public Tile[,] TileArray = new Tile[4, 4];
+    [Header("Tile Spot")]
     [ShowInInspector] public bool[,] TileSpot = new bool[4, 4];
+    [ShowInInspector] public List<Tile> TileList = new List<Tile>();
     [ShowInInspector] private List<TileIndex> TileIndexList = new List<TileIndex>();
     private string path;
     private float timeDelay = 0.5f;
     private int prefabIndex;
     private int rows;
     private int columns;
+
+    public int GetNumberOfRows()
+    {
+        return rows;
+    }
+
+    public int GetNumberOfColumns()
+    {
+        return columns;
+    }
+
     public override void OnInit()
     {
-        columns = NumberOfColumns + 2;
         rows = NumberOfRows + 2;
+        columns = NumberOfColumns + 2;
         PanelTiles = UIManager.Instance.Canvas_Gameplay.PanelTiles;
         UIManager.Instance.Canvas_Gameplay.SetConstraintCount(rows);
     }
@@ -98,7 +112,7 @@ public class LevelGenerator : CacheComponent
         {
             for (int j = 0; j < columns; j++)
             {
-                if (TileArray[i, j] == null)
+                if (TileSpot[i, j] == false)
                 {
                     Tile emptyTile = Instantiate(EmptyTilePrefab);
                     TileArray[i, j] = emptyTile;
@@ -117,29 +131,54 @@ public class LevelGenerator : CacheComponent
             {
                 if (TileArray[i, j] != null)
                 {
-                    this.LogMsg(i);
-                    this.LogMsg(j);
-                    TileArray[i, j].Transform.SetParent(PanelTiles);
+
+                    Tile tile = TileArray[i, j];
+                    TileList.Add(tile);
                 }
             }
+        }
+        for (int i = 0; i < TileList.Count; i++)
+        {
+            TileList[i].Transform.SetParent(PanelTiles);
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(PanelTiles);
     }
 
     public Vector2Int GetTileIndex(Tile tile)
     {
-        for (int i = 1; i < NumberOfColumns; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 1; j < NumberOfRows; j++)
+            for (int j = 0; j < columns; j++)
             {
                 if (TileArray[i, j] == tile)
                 {
-                    this.LogMsg(j);
                     return new Vector2Int(i, j);
                 }
             }
         }
         return new Vector2Int();
+    }
+
+    public Vector3 GetTilePosition(Vector2Int index)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (i == index.x && j == index.y)
+                {
+                    Vector3 position = TileArray[i, j].WorldPosition;
+                    return position;
+                }
+            }
+        }
+        return new Vector3();
+    }
+
+    public void SetEmptyTile(Vector2Int index)
+    {
+        TileSpot[index.x, index.y] = false;
+        TileArray[index.x, index.y].SetEmptyTile();
     }
 }
 
