@@ -75,7 +75,7 @@ public class ConnectionController : Singleton<ConnectionController>
         {
             for (int y = min; y < max; y++)
             {
-                if (LevelManager.Instance.LevelGenerator.TileSpot[x, y] == false)
+                if (LevelManager.Instance.LevelCreator.TileSpot[x, y] == false)
                 {
                     return true;
                 }
@@ -91,7 +91,7 @@ public class ConnectionController : Singleton<ConnectionController>
         int max = Mathf.Max(x1, x2);
         for (int x = min; x <= max; x++)
         {
-            if (LevelManager.Instance.LevelGenerator.TileSpot[x, y] == false)
+            if (LevelManager.Instance.LevelCreator.TileSpot[x, y] == false)
             {
                 return true;
             }            
@@ -161,7 +161,7 @@ public class ConnectionController : Singleton<ConnectionController>
 
                 for (int i = indexMin; i <= indexMax; i++)
                 {
-                    Vector3 tilePosition = LevelManager.Instance.LevelGenerator.TileArray[FirstTileIndex.x, i].WorldPosition;
+                    Vector3 tilePosition = LevelManager.Instance.LevelCreator.TileArray[FirstTileIndex.x, i].WorldPosition;
                     TilePositions.Add(tilePosition);
                     DrawLine();
                 }
@@ -182,7 +182,7 @@ public class ConnectionController : Singleton<ConnectionController>
 
                 for (int i = indexMin; i <= indexMax; i++)
                 {
-                    Vector3 tilePosition = LevelManager.Instance.LevelGenerator.TileArray[i, FirstTileIndex.y].WorldPosition;
+                    Vector3 tilePosition = LevelManager.Instance.LevelCreator.TileArray[i, FirstTileIndex.y].WorldPosition;
                     TilePositions.Add(tilePosition);
                     DrawLine();
                 }
@@ -219,8 +219,8 @@ public class ConnectionController : Singleton<ConnectionController>
 
     private void GetTilePosition(LineConnect line)
     {
-        Vector3 position1 = LevelManager.Instance.LevelGenerator.GetTilePosition(line.Point1);
-        Vector3 position2 = LevelManager.Instance.LevelGenerator.GetTilePosition(line.Point2);
+        Vector3 position1 = LevelManager.Instance.LevelCreator.GetTilePosition(line.Point1);
+        Vector3 position2 = LevelManager.Instance.LevelCreator.GetTilePosition(line.Point2);
         TilePositions.AddElements(position1, position2);
     }
 
@@ -238,8 +238,8 @@ public class ConnectionController : Singleton<ConnectionController>
     {
         yield return Helper.GetWaitForSeconds(timeDelay);
         UILineRenderer.gameObject.SetActive(false);
-        LevelManager.Instance.LevelGenerator.SetEmptyTile(FirstTileIndex);
-        LevelManager.Instance.LevelGenerator.SetEmptyTile(SecondTileIndex);
+        LevelManager.Instance.LevelCreator.SetEmptyTile(FirstTileIndex);
+        LevelManager.Instance.LevelCreator.SetEmptyTile(SecondTileIndex);
         UILineRenderer.Points = new Vector2[0];
         LineConnectList.Clear();
         TilePositions.Clear();

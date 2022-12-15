@@ -6,7 +6,7 @@ using UnityEngine.UI.Extensions;
 
 public class Canvas_Gameplay : UICanvas
 {
-    public RectTransform PanelTiles;
+    public RectTransform CellPanel;
     public RectTransform UILineRendererRectTransform;
     public GridLayoutGroup GridLayoutGroup;
     public UILineRenderer UILineRenderer;
@@ -22,4 +22,9 @@ public class Canvas_Gameplay : UICanvas
     {
         GridLayoutGroup.constraintCount = constraint;
     }     
+
+    public void DisableGrid()
+    {
+        GridLayoutGroup.enabled = false;
+    }
 }

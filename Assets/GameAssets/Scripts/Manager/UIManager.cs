@@ -24,6 +24,7 @@ public class UIManager : Singleton<UIManager>
             UICanvasPrefabs.Add(canvases[i].ID, canvases[i]);
         }
         Canvas_Gameplay = GetUI(UIID.UI_Gameplay) as Canvas_Gameplay;
+        OpenUI(UIID.UI_Gameplay);
     }
 
     public bool IsOpenedUI(UIID ID)

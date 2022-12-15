@@ -5,10 +5,11 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public LevelGenerator LevelGenerator;
+    public LevelCreator LevelCreator;
+    public int CurrentLevel;
 
-    public override void OnInit()
+    public void GenerateLevel()
     {
-        base.OnInit();
-        LevelGenerator.OnInit();
+        LevelGenerator.GenerateLevel(1);
     }
 }

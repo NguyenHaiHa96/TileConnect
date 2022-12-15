@@ -17,8 +17,8 @@ public class PathfindingController : Singleton<PathfindingController>
     public override void OnInit()
     {
         base.OnInit();
-        int row = LevelManager.Instance.LevelGenerator.GetNumberOfRows();
-        int column = LevelManager.Instance.LevelGenerator.GetNumberOfColumns();
+        int row = LevelManager.Instance.LevelCreator.GetNumberOfRows();
+        int column = LevelManager.Instance.LevelCreator.GetNumberOfColumns();
         Pathfinding = new Pathfinding(row, column);
     }
 

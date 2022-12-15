@@ -12,7 +12,7 @@ public class Pathfinding
     public List<PathNode> OpenList;
     public List<PathNode> CloseList;
 
-    public int[,] Mattrix;
+    public int[,] Matrix;
     public int Row;
     public int Column;
 
@@ -25,7 +25,7 @@ public class Pathfinding
     {
         Row = row;
         Column = column;
-        Mattrix = new int[row, column];
+        Matrix = new int[row, column];
         NodeGrid = new GameGrid<PathNode>(row, column, (GameGrid<PathNode> grid, int x, int y) => new PathNode(grid, x, y));
     }
 

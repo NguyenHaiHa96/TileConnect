@@ -1,200 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 using Sirenix.OdinInspector;
 
 public class LevelGenerator : CacheComponent
 {
-    private readonly string THEME_FISH_PATH = "Tile/Theme/Fish/";
+    [SerializeField] private Cell cellPrefab;
+    [SerializeField] private Cell emptyCellPrefab;
+    [SerializeField] private LevelDataObject levelDataObject;
+    [SerializeField] private BlockPackObject blockPackObject;
+    [SerializeField] private LevelData levelData;
+    [SerializeField] private List<Cell> cellList;
+    [SerializeField] private RectTransform CellPanel;
+    [SerializeField] private int row;
+    [SerializeField] private int column;
+    [ShowInInspector] private Cell[,] cellMatrix = new Cell[4, 4];
+    [ShowInInspector] private bool[,] cellSpot = new bool[4, 4];
 
-    public Tile EmptyTilePrefab;
-    public RectTransform PanelTiles;
-    public List<Tile> TilePrefabList;
-    [FormerlySerializedAs("NumberOfRows")] public int NumberOfRows;
-    [FormerlySerializedAs("NumberOfColumns")] public int NumberOfColumns;
-    [Header("Tile Array")]
-    [ShowInInspector] public Tile[,] TileArray = new Tile[4, 4];
-    [Header("Tile Spot")]
-    [ShowInInspector] public bool[,] TileSpot = new bool[4, 4];
-    [ShowInInspector] public List<Tile> TileList = new List<Tile>();
-    [ShowInInspector] private List<TileIndex> TileIndexList = new List<TileIndex>();
-    private string path;
-    private float timeDelay = 0.5f;
-    private int prefabIndex;
-    private int rows;
-    private int columns;
-
-    public int GetNumberOfRows()
+    public void GenerateLevel(int level)
     {
-        return rows;
+        levelData = levelDataObject.GetLevel(level);
+        blockPackObject = levelDataObject.BlockPackObject(levelData);
+        row = levelData.shape.row;
+        column = levelData.shape.col;
+        CellPanel = UIManager.Instance.Canvas_Gameplay.CellPanel;
+        cellMatrix = new Cell[row, column];
+        UIManager.Instance.Canvas_Gameplay.SetConstraintCount(row);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(CellPanel);
+        SetCellData();
+        SetCellParent();
     }
 
-    public int GetNumberOfColumns()
+    private void SetCellData()
     {
-        return columns;
-    }
-
-    public override void OnInit()
-    {
-        rows = NumberOfRows + 2;
-        columns = NumberOfColumns + 2;
-        PanelTiles = UIManager.Instance.Canvas_Gameplay.PanelTiles;
-        UIManager.Instance.Canvas_Gameplay.SetConstraintCount(rows);
-    }
-
-    public void GenerateLevel(TileTheme theme)
-    {
-        TileArray = new Tile[rows, columns];
-        TileSpot = new bool[rows, columns];
-        switch (theme)
+        foreach (CellData data in levelData.shape.datas)
         {
-            case TileTheme.Fish:
-                path = THEME_FISH_PATH;      
-                break;
-            case TileTheme.Insect:
-                break;
-            case TileTheme.Fruit:
-                break;
-            case TileTheme.Bird:
-                break;
-            case TileTheme.Dinosaur:
-                break;
-            default:
-                break;
+            Cell cell;
+            if (data.spriteId == -1) 
+            {
+                cell = Instantiate(emptyCellPrefab);
+            }
+            else
+            {
+                cell = Instantiate(cellPrefab);
+                cell.SetData(blockPackObject.GetSprite(data.spriteId), data);
+            }
+            cellList.Add(cell);
         }
+
+        foreach (Cell cell in cellList)
+        {
+            cellMatrix[cell.CellData.rowIndex, cell.CellData.colIndex] = cell;
+        }
+    }
+
+    private void SetCellParent()
+    {
         
-        GenerateLevelByTheme();
-    }
-
-    private void GenerateLevelByTheme()
-    {
-        Tile[] tiles = Resources.LoadAll<Tile>(path);
-        TilePrefabList = tiles.ToList();
-        for (int i = 1; i < rows - 1; i++)
+        foreach (Cell cell in cellList)
         {
-            for (int j = 1; j < columns - 1; j++)
-            {
-                TileIndex tileSpot = new TileIndex(i, j);
-                TileIndexList.Add(tileSpot);
-            }
+            cell.Transform.SetParent(CellPanel);
         }
-
-        InstantiateTile();
-        InstantiateEmptyTile();
-        SetTileParent();
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(CellPanel);
     }
 
-    private void InstantiateTile()
+    public void GetCellIndex(Cell cell, out int x, out int y)
     {
-        while (TileIndexList.Count > 0)
+        x = 0;
+        y = 0;
+        for (int i = 0; i < row; i++)
         {
-            prefabIndex = Random.Range(0, TilePrefabList.Count);
-            for (int i = 0; i < 2; i++)
+            for (int j = 0; j < column; j++)
             {
-                int index = Random.Range(0, TileIndexList.Count);
-                TileIndex tileSpot = TileIndexList[index];
-                Tile tile = Instantiate(TilePrefabList[prefabIndex]);
-                TileArray[tileSpot.RowIndex, tileSpot.ColumnIndex] = tile;
-                tile.RowIndex = tileSpot.RowIndex;
-                tile.ColumnIndex = tileSpot.ColumnIndex;
-                TileSpot[tileSpot.RowIndex, tileSpot.ColumnIndex] = true;
-                TileIndexList.RemoveAt(index);
-            }
-        }
-    }
-
-    private void InstantiateEmptyTile()
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                if (TileSpot[i, j] == false)
+                if (cellMatrix[i, j] == cell)
                 {
-                    Tile emptyTile = Instantiate(EmptyTilePrefab);
-                    TileArray[i, j] = emptyTile;
-                    emptyTile.RowIndex = i;
-                    emptyTile.ColumnIndex = j;
+                    x = i;
+                    y = j;
                 }
             }
         }
-    }
-
-    private void SetTileParent()
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                if (TileArray[i, j] != null)
-                {
-
-                    Tile tile = TileArray[i, j];
-                    TileList.Add(tile);
-                }
-            }
-        }
-        for (int i = 0; i < TileList.Count; i++)
-        {
-            TileList[i].Transform.SetParent(PanelTiles);
-        }
-        LayoutRebuilder.ForceRebuildLayoutImmediate(PanelTiles);
-    }
-
-    public Vector2Int GetTileIndex(Tile tile)
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                if (TileArray[i, j] == tile)
-                {
-                    return new Vector2Int(i, j);
-                }
-            }
-        }
-        return new Vector2Int();
-    }
-
-    public Vector3 GetTilePosition(Vector2Int index)
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                if (i == index.x && j == index.y)
-                {
-                    Vector3 position = TileArray[i, j].WorldPosition;
-                    return position;
-                }
-            }
-        }
-        return new Vector3();
-    }
-
-    public void SetEmptyTile(Vector2Int index)
-    {
-        TileSpot[index.x, index.y] = false;
-        TileArray[index.x, index.y].SetEmptyTile();
     }
 }
-
-[System.Serializable]
-public class TileIndex
-{
-    public int RowIndex;
-    public int ColumnIndex;
-
-    public TileIndex(int rowIndex, int columnIndex)
-    {
-        RowIndex = rowIndex;
-        ColumnIndex = columnIndex;
-    }
-}
-
-
-
-

@@ -277,9 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 5696981008717459820}
-  ID: 1
+  ID: 3
   IsDestroyOnClose: 0
-  PanelTiles: {fileID: 5696981009605424601}
+  CellPanel: {fileID: 0}
   UILineRendererRectTransform: {fileID: 5016866373460209665}
   GridLayoutGroup: {fileID: 5379665485728565703}
   UILineRenderer: {fileID: 674116790705879604}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 5696981009605424598}
   - component: {fileID: 5379665485728565703}
   m_Layer: 5
-  m_Name: Panel - Tiles
+  m_Name: Panel - Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,10 +392,10 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
-  m_StartAxis: 1
+  m_StartAxis: 0
   m_CellSize: {x: 120, y: 120}
-  m_Spacing: {x: 10, y: 10}
-  m_Constraint: 1
+  m_Spacing: {x: 5, y: 5}
+  m_Constraint: 2
   m_ConstraintCount: 4
 --- !u!1 &5696981009696643794
 GameObject:

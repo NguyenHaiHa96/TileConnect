@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CacheComponent : MonoBehaviour
 {
     public Transform Transform { get => transform; }
+    public RectTransform RectTransform { get => GetComponent<RectTransform>(); }
     public Quaternion Rotation { get => transform.rotation; set => transform.rotation = value; }
     public Vector3 WorldPosition { get => transform.position; set => transform.position = value; }
     public Vector3 LocalPosition { get => transform.localPosition; set => transform.localPosition = value; }

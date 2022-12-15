@@ -1,10 +1,10 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.IO;
 
 public class Tile : UIElement, IPointerUpHandler, IPointerDownHandler
 {
@@ -28,12 +28,12 @@ public class Tile : UIElement, IPointerUpHandler, IPointerDownHandler
         PathfindingController.Instance.TileCount++;
         if (PathfindingController.Instance.TileCount == 1)
         {
-            tileIndex = LevelManager.Instance.LevelGenerator.GetTileIndex(this);
+            tileIndex = LevelManager.Instance.LevelCreator.GetTileIndex(this);
             PathfindingController.Instance.GetFirstTile(this, tileIndex);
         }
         else
         {
-            tileIndex = LevelManager.Instance.LevelGenerator.GetTileIndex(this);
+            tileIndex = LevelManager.Instance.LevelCreator.GetTileIndex(this);
             PathfindingController.Instance.GetSecondTile(this, tileIndex);
         }
     }

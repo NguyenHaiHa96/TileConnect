@@ -17,7 +17,7 @@ public class GameGrid<TGridObject>
     }
 
     public Transform Parent;
-    [ShowInInspector] public TGridObject[,] Mattrix;
+    [ShowInInspector] public TGridObject[,] Matrix;
     public float CellSize;
     public int Row;
     public int Column;
@@ -27,15 +27,15 @@ public class GameGrid<TGridObject>
         Row = row;
         Column = column;
         CellSize = cellSize;
-        Mattrix = new TGridObject[row, column];
+        Matrix = new TGridObject[row, column];
 
         for (int x = 0; x < row; x++)
         {
             for (int y = 0; y < column; y++)
             {
                 TGridObject gridObject = createObject();
-                Mattrix[x, y] = gridObject;
-                //UtilsClass.CreateWorldText(Mattrix[x, y].ToString(), parent, GetWordPosition(x,y), 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
+                Matrix[x, y] = gridObject;
+                //UtilsClass.CreateWorldText(Matrix[x, y].ToString(), parent, GetWordPosition(x,y), 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
             }
         }
     }
@@ -44,14 +44,14 @@ public class GameGrid<TGridObject>
     {
         Row = row;
         Column = column;
-        Mattrix = new TGridObject[row, column];
+        Matrix = new TGridObject[row, column];
 
         for (int x = 0; x < row; x++)
         {
             for (int y = 0; y < column; y++)
             {
-                Mattrix[x, y] = createGridObject(this, x, y);
-                //UtilsClass.CreateWorldText(Mattrix[x, y].ToString(), parent, GetWordPosition(x,y), 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
+                Matrix[x, y] = createGridObject(this, x, y);
+                //UtilsClass.CreateWorldText(Matrix[x, y].ToString(), parent, GetWordPosition(x,y), 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
             }
         }
     }
@@ -76,7 +76,7 @@ public class GameGrid<TGridObject>
     {
         if (x >= 0 && y <= 0 && x < Row && y < Column)
         {
-            return Mattrix[x, y];
+            return Matrix[x, y];
         }
         else return default(TGridObject);
     }
@@ -85,7 +85,7 @@ public class GameGrid<TGridObject>
     {
         if (x >= 0 && y <= 0 && x < Row && y < Column)
         {
-            Mattrix[x, y] = value;
+            Matrix[x, y] = value;
         }
     }
 

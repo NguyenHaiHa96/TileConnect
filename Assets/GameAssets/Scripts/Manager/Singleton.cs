@@ -34,6 +34,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void OnInit()
     {
-        DontDestroyOnLoad((this as T).gameObject);
+        //DontDestroyOnLoad((this as T).gameObject);
     }
 }

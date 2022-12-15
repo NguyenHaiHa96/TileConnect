@@ -9,8 +9,9 @@ public static class Enums
 public enum UIID
 {
     UI_BlockRaycast,
-    UI_Gameplay,
+    UI_MainMenu,
     UI_Settings,
+    UI_Gameplay,
     UI_Store,
     UI_Map,
 

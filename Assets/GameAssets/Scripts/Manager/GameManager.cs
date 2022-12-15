@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
     private void HandleGameplay()
     {
         UIManager.Instance.OpenUI(UIID.UI_Gameplay);
-        LevelManager.Instance.LevelGenerator.GenerateLevel(TileTheme.Fish);
+        LevelManager.Instance.GenerateLevel();  
     }
 
     private void HandleQuitGame()
