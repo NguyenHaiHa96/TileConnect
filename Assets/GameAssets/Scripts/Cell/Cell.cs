@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Cell : CacheComponent, IPointerUpHandler, IPointerDownHandler
 {
+    public SpriteRenderer ImgCell;
     public Image CellSprite;
     public CellData CellData;
 
@@ -21,7 +22,8 @@ public class Cell : CacheComponent, IPointerUpHandler, IPointerDownHandler
 
     public void SetData(Sprite sprite, CellData data)
     {
-        CellSprite.sprite = sprite;
+        ImgCell.sprite = sprite;
+        //CellSprite.sprite = sprite;
         CellData = data;
     }
 }

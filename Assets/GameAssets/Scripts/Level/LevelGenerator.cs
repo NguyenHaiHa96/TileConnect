@@ -7,13 +7,14 @@ using Sirenix.OdinInspector;
 
 public class LevelGenerator : CacheComponent
 {
+    [SerializeField] private CellContainer cellContainer;
+    [SerializeField] private RectTransform CellPanel;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Cell emptyCellPrefab;
     [SerializeField] private LevelDataObject levelDataObject;
     [SerializeField] private BlockPackObject blockPackObject;
     [SerializeField] private LevelData levelData;
     [SerializeField] private List<Cell> cellList;
-    [SerializeField] private RectTransform CellPanel;
     [SerializeField] private int row;
     [SerializeField] private int column;
     [ShowInInspector] private Cell[,] cellMatrix = new Cell[4, 4];
@@ -30,7 +31,7 @@ public class LevelGenerator : CacheComponent
         UIManager.Instance.Canvas_Gameplay.SetConstraintCount(row);
         LayoutRebuilder.ForceRebuildLayoutImmediate(CellPanel);
         SetCellData();
-        SetCellParent();
+        SetCellPosition();
     }
 
     private void SetCellData()
@@ -56,14 +57,42 @@ public class LevelGenerator : CacheComponent
         }
     }
 
-    private void SetCellParent()
+    private void SetCellPosition()
+    {
+        //cellContainer.LocalScale = new Vector3(column, column, cellContainer.LocalScale.y);
+        float a = 0;
+        float xPos = 0;
+        float yPos = 0f;
+        float xAdding = 1.5f;
+        float yAdding = 1.5f;
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < column; j++)
+            {
+                cellMatrix[i, j].WorldPosition = new Vector3(xPos, yPos, cellMatrix[i, j].WorldPosition.z);
+                xPos += xAdding;
+                a = xPos;
+            }
+            xPos = 0;
+            yPos -= yAdding;
+        }
+        this.LogMsg(a);
+        this.LogMsg(xPos);
+        this.LogMsg(yPos);
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < column; j++)
+            {
+                cellMatrix[i, j].Transform.SetParent(cellContainer.Transform);
+            }
+        }
+        SetCameraPosition();
+    }
+
+    private void SetCameraPosition()
     {
         
-        foreach (Cell cell in cellList)
-        {
-            cell.Transform.SetParent(CellPanel);
-        }
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(CellPanel);
+        CameraController.Instance.SetCameraFocusPoint(cellContainer.WorldPosition);
     }
 
     public void GetCellIndex(Cell cell, out int x, out int y)

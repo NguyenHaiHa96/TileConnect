@@ -10,6 +10,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void GenerateLevel()
     {
-        LevelGenerator.GenerateLevel(1);
+        LevelGenerator.GenerateLevel(2);
     }
 }
