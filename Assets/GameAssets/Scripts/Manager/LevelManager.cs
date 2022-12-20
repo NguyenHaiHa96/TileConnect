@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public LevelGenerator LevelGenerator;
     public LevelCreator LevelCreator;
+    public LevelGenerator LevelGenerator;
+    public ConnectionChecker ConnectionChecker;
     public int CurrentLevel;
 
     public void GenerateLevel()
     {
-        LevelGenerator.GenerateLevel(2);
+        LevelGenerator.GenerateLevel(1);
     }
 }

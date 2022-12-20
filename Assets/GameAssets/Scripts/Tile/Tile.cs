@@ -43,10 +43,10 @@ public class Tile : UIElement, IPointerUpHandler, IPointerDownHandler
         if (IsEmpty) return;
         if (PathfindingController.Instance.TileCount == 2)
         {
-        if (PathfindingController.Instance.CheckTile())
-            {
-                PathfindingController.Instance.CheckTileConnection();
-            }
+            if (PathfindingController.Instance.CheckTile())
+                {
+                    PathfindingController.Instance.CheckTileConnection();
+                }
         }    
     }
 

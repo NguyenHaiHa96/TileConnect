@@ -20,6 +20,10 @@ public class LevelGenerator : CacheComponent
     [ShowInInspector] private Cell[,] cellMatrix = new Cell[4, 4];
     [ShowInInspector] private bool[,] cellSpot = new bool[4, 4];
 
+    private float posX;
+    private float posY;
+    private float spacing = 1.5f;
+
     public void GenerateLevel(int level)
     {
         levelData = levelDataObject.GetLevel(level);
@@ -60,25 +64,20 @@ public class LevelGenerator : CacheComponent
     private void SetCellPosition()
     {
         //cellContainer.LocalScale = new Vector3(column, column, cellContainer.LocalScale.y);
-        float a = 0;
         float xPos = 0;
         float yPos = 0f;
-        float xAdding = 1.5f;
-        float yAdding = 1.5f;
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < column; j++)
             {
                 cellMatrix[i, j].WorldPosition = new Vector3(xPos, yPos, cellMatrix[i, j].WorldPosition.z);
-                xPos += xAdding;
-                a = xPos;
+                xPos += spacing;
+                posX = xPos;
             }
             xPos = 0;
-            yPos -= yAdding;
+            yPos -= spacing;
         }
-        this.LogMsg(a);
-        this.LogMsg(xPos);
-        this.LogMsg(yPos);
+        posY = yPos;
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < column; j++)
@@ -91,8 +90,10 @@ public class LevelGenerator : CacheComponent
 
     private void SetCameraPosition()
     {
-        
-        CameraController.Instance.SetCameraFocusPoint(cellContainer.WorldPosition);
+        posX = (posX / 2f) - (spacing / 2f);
+        posY = (posY / 2f) + (spacing / 2f);
+        CameraController.Instance.SetCameraFocusPoint(new Vector3(posX, posY));
+        CameraController.Instance.SetStartPosition();
     }
 
     public void GetCellIndex(Cell cell, out int x, out int y)
