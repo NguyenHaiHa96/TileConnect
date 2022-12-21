@@ -35,6 +35,7 @@ public class ConnectionChecker : Singleton<ConnectionChecker>
 
     public void CheckConnection()
     {
+        CellCount = 0;
         CellConnectList = LevelData.CellPathCanDraw(Cell_1, Cell_2);
     }
 }

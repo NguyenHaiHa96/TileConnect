@@ -23,7 +23,16 @@ public class Cell : CacheComponent
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+        if (IsEmpty) return;
+        ConnectionChecker.Instance.CellCount++;
+        if (ConnectionChecker.Instance.CellCount == 1)
+        {
+            ConnectionChecker.Instance.SetStartCellData(CellData);
+        }
+        else
+        {
+            ConnectionChecker.Instance.SetEndCellData(CellData);
+        }
     }
 
     private void OnMouseDown()
