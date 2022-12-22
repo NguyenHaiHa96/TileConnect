@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ConnectionChecker : Singleton<ConnectionChecker>
 {
+    [SerializeField] private Transform starContainer;
     [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private Star starPrefab;
+    [SerializeField] private List<Star> stars;
     [SerializeField] private LevelData levelData;
     [Header("Check Connection")]
     [SerializeField] private List<CellData> cellDatas;
@@ -15,16 +18,23 @@ public class ConnectionChecker : Singleton<ConnectionChecker>
     [SerializeField] private CellData cellData_2;
     [SerializeField] private int cellCount;
 
+    private float timeDelayResetLine = 0.5f;
 
     public int CellCount { get => cellCount; set => cellCount = value; }
-    
+
+    public override void OnInit()
+    {
+        base.OnInit();
+        starContainer = LevelManager.Instance.LevelGenerator.StarContainer; 
+    }
+
     public void SetStartCell(Cell cell, CellData cellData)
     {
         cell_1 = cell;
         cellData_1 = cellData;
     }
 
-    public void SetEndCellData(Cell cell, CellData cellData)
+    public void SetEndCell(Cell cell, CellData cellData)
     {
         cell_2 = cell;
         cellData_2 = cellData;
@@ -64,6 +74,32 @@ public class ConnectionChecker : Singleton<ConnectionChecker>
         for (int i = 0; i < cellPositions.Count; i++)
         {
             lineRenderer.SetPosition(i, cellPositions[i]);
+        }
+
+        ShowStar();
+        StartCoroutine(ResetLine());
+    }
+
+    private void ShowStar()
+    {
+        
+        foreach (Vector3 position in cellPositions)
+        {
+            Star star = Instantiate(starPrefab, position, Quaternion.identity, starContainer);
+            stars.Add(star);
+        }
+    }
+
+    private IEnumerator ResetLine()
+    {
+        yield return Helper.GetWaitForSeconds(timeDelayResetLine);
+        lineRenderer.positionCount = 0;
+        cell_1.SetIsNotBarrier();
+        cell_2.SetIsNotBarrier();
+
+        foreach (Star star in stars)
+        {
+            Destroy(star.gameObject);
         }
     }
 }

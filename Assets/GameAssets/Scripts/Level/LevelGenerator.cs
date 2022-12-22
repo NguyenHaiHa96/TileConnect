@@ -7,7 +7,8 @@ using Sirenix.OdinInspector;
 
 public class LevelGenerator : CacheComponent
 {
-    [SerializeField] private CellContainer cellContainer;
+    [SerializeField] private Transform cellContainer;
+    [SerializeField] private Transform starContainer;
     [SerializeField] private RectTransform CellPanel;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Cell emptyCellPrefab;
@@ -23,6 +24,8 @@ public class LevelGenerator : CacheComponent
     private float posX;
     private float posY;
     private float spacing = 1.5f;
+
+    public Transform StarContainer { get => starContainer; set => starContainer = value; }
 
     public void GenerateLevel(int level)
     {
@@ -82,7 +85,7 @@ public class LevelGenerator : CacheComponent
         {
             for (int j = 0; j < column; j++)
             {
-                cellMatrix[i, j].Transform.SetParent(cellContainer.Transform);
+                cellMatrix[i, j].Transform.SetParent(cellContainer);
             }
         }
         SetCameraPosition();

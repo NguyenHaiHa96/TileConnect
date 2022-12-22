@@ -22,7 +22,7 @@ public class Cell : CacheComponent
         }
         else
         {
-            ConnectionChecker.Instance.SetEndCellData(this, CellData);
+            ConnectionChecker.Instance.SetEndCell(this, CellData);
         }
 
         if (ConnectionChecker.Instance.CellCount == 2)
@@ -36,5 +36,11 @@ public class Cell : CacheComponent
         ImgCell.sprite = sprite;
         //CellSprite.sprite = sprite;
         CellData = data;
+    }
+
+    public void SetIsNotBarrier()
+    {
+        IsBarrier = false;
+        gameObject.SetActive(false);
     }
 }
