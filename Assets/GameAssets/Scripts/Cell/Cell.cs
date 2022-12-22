@@ -12,40 +12,22 @@ public class Cell : CacheComponent
     public bool IsEmpty;
     public bool IsBarrier;
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (IsEmpty) return;
-        if (ConnectionChecker.Instance.CellCount == 2)
-        {
-            ConnectionChecker.Instance.CheckCell();
-        }
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (IsEmpty) return;
-        ConnectionChecker.Instance.CellCount++;
-        if (ConnectionChecker.Instance.CellCount == 1)
-        {
-            ConnectionChecker.Instance.SetStartCellData(CellData);
-        }
-        else
-        {
-            ConnectionChecker.Instance.SetEndCellData(CellData);
-        }
-    }
-
     private void OnMouseDown()
     {
         if (IsEmpty) return;
         ConnectionChecker.Instance.CellCount++;
         if (ConnectionChecker.Instance.CellCount == 1)
         {
-            ConnectionChecker.Instance.SetStartCellData(CellData);
+            ConnectionChecker.Instance.SetStartCell(this, CellData);
         }
         else
         {
-            ConnectionChecker.Instance.SetEndCellData(CellData);
+            ConnectionChecker.Instance.SetEndCellData(this, CellData);
+        }
+
+        if (ConnectionChecker.Instance.CellCount == 2)
+        {
+            ConnectionChecker.Instance.CheckCell();
         }
     }
 

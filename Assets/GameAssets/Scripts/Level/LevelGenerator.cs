@@ -112,4 +112,16 @@ public class LevelGenerator : CacheComponent
             }
         }
     }
+
+    public Vector3 GetCellPositionByCellData(CellData cellData)
+    {
+        for (int i = 0; i < cellList.Count; i++)
+        {
+            if (cellList[i].CellData == cellData)
+            {
+                return new Vector3(cellList[i].WorldPosition.x, cellList[i].WorldPosition.y, -1);
+            }
+        }
+        return Vector3.zero;
+    }
 }
