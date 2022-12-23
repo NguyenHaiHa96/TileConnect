@@ -50,7 +50,8 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleStartGame()
     {
-
+        UIManager.Instance.OpenUI(UIID.UI_MainMenu);
+        UIManager.Instance.Canvas_MainMenu.ShowCurrentMap();
     }
 
     private void HandleGameplay()

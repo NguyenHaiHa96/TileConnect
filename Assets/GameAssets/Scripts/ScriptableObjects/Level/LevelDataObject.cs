@@ -5,7 +5,7 @@ using SimpleJSON;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "GameData/Create LevelDataObject", fileName = "LevelDataObject", order = 0)]
+[CreateAssetMenu(menuName = "Game Data/Create Level Data Object", fileName = "Level Data Object", order = 0)]
 public class LevelDataObject : ScriptableObject
 {
     [SerializeField] private TextAsset levelTxtAsset;

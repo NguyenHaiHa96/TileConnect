@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     [ShowInInspector] public Dictionary<UIID, UICanvas> UICanvas = new Dictionary<UIID, UICanvas>();
 
     public Transform CanvasParent;
+    public Canvas_MainMenu Canvas_MainMenu;
     public Canvas_Gameplay Canvas_Gameplay;
 
     private string path = "UI/Canvas/";
@@ -23,6 +24,8 @@ public class UIManager : Singleton<UIManager>
         {
             UICanvasPrefabs.Add(canvases[i].ID, canvases[i]);
         }
+
+        Canvas_MainMenu = GetUI(UIID.UI_MainMenu) as Canvas_MainMenu;
         Canvas_Gameplay = GetUI(UIID.UI_Gameplay) as Canvas_Gameplay;
         OpenUI(UIID.UI_Gameplay);
     }

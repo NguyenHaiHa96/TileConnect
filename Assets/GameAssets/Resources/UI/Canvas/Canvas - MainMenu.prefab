@@ -649,7 +649,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7445104327794482312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   ID: 1
   IsDestroyOnClose: 0
   userProfile: {fileID: 0}
-  addGold: {fileID: 0}
+  purchaseGold: {fileID: 0}
   openSettings: {fileID: 325446031565385502}
   userName: {fileID: 0}
   numberOfGolds: {fileID: 0}

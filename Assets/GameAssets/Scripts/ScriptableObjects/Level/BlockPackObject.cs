@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "GameData/Create BlockPackObject", fileName = "BlockPackObject", order = 0)]
+[CreateAssetMenu(menuName = "Game Data/Create Block Pack Object", fileName = "Block Pack Object", order = 0)]
 public class BlockPackObject :ScriptableObject
 {
     [SerializeField] private int id;

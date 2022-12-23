@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasParent: {fileID: 793912514}
+  Canvas_MainMenu: {fileID: 0}
   Canvas_Gameplay: {fileID: 0}
 --- !u!1001 &882658825
 PrefabInstance:
@@ -397,7 +398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7445104327794482309, guid: 6d77c6ea0c822384094e8626203016d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7445104327794482313, guid: 6d77c6ea0c822384094e8626203016d1, type: 3}
       propertyPath: m_PresetInfoIsWorld
