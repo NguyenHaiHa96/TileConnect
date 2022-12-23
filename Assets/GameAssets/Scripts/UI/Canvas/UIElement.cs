@@ -21,4 +21,9 @@ public class UIElement : CacheComponent
     {
         gameObject.SetActive(false);
     }
+
+    public virtual void FetchData()
+    {
+
+    }
 }

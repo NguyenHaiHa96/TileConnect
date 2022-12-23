@@ -101,5 +101,7 @@ public class ConnectionChecker : Singleton<ConnectionChecker>
         {
             Destroy(star.gameObject);
         }
+        stars.Clear();
+        cellPositions.Clear();
     }
 }

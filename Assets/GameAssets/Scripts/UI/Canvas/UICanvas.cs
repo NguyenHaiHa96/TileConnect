@@ -14,11 +14,6 @@ public class UICanvas : UIElement
 
     public UnityAction CloseCallback { get => closeCallback; set => closeCallback = value; }
 
-    private void OnEnable()
-    {
-        OnOpen();
-    }
-
     public override void OnClose()
     {
         if (CloseCallback != null)
